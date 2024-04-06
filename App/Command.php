@@ -392,13 +392,13 @@ class Command extends ConsoleCommand
   }
 
   /**
-   * Make RockShell run as superuser
+   * Make RockShell run as a ProcessWire superuser
    * @return void
    */
   public function sudo(): void
   {
     if (!$this->wire()) return;
-    // this will create a new superuser at runtime
+    // this will create a new PW superuser at runtime
     // this ensures that we can run rockshell without superusers on the system
     // it also ensures that the user has the default language set which is
     // important to avoid hard to find bugs where scripts set values
