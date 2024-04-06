@@ -81,6 +81,9 @@ class DbRestore extends Command {
     if($this->option('y') OR $this->option("migrate")
       OR $this->confirm("Do you want to run migrations now?")) {
       $this->warn("\nRunning migrations...");
+
+      $path = $this->app->pwRootPath();
+      chdir($path);
       $this->exec("php site/modules/RockMigrations/migrate.php");
     }
 

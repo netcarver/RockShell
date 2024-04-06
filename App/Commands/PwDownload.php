@@ -13,7 +13,7 @@ class PwDownload extends Command {
   }
 
   public function handle() {
-    $path = $this->app->rootPath();
+    $path = $this->app->pwRootPath();
     chdir($path);
     $version = $this->argument('version')
       ?: $this->askWithCompletion(
@@ -40,7 +40,7 @@ class PwDownload extends Command {
     $this->exec("rm $version.zip");
     $this->exec("mv processwire-$version pwtmp");
     $this->exec('find pwtmp -mindepth 1 -maxdepth 1 -exec mv -t ./ {} +');
-    
+
     sleep(1);
     $this->exec("rm -rf pwtmp");
 

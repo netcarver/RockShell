@@ -153,4 +153,23 @@ class Application extends ConsoleApplication
   {
     return $this->root;
   }
+
+  public function pwRootPath()
+  {
+    // Check if PW is installed in a DDEV docroot subdirectory
+    $rs_root = $this->rootPath();
+    $ddev_path = "$rs_root.ddev";
+    if (is_dir($ddev_path)) {
+      $ddev_config = $ddev_path . "/config.yaml";
+      if (is_readable($ddev_config)) {
+        $ddevconfig = file_get_contents($ddev_config);
+        $m = [];
+        if (preg_match('/^\s*docroot:\s*(.*?)\s*$/m', $ddevconfig, $m)) {
+          $path = rtrim($this->rootPath() . $m[1], '/') . '/';
+          return $path;
+        }
+      }
+    }
+    return $this->rootPath();
+  }
 }
